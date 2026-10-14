@@ -36,21 +36,18 @@ Open the local Vite URL printed by the command (normally `http://localhost:5173`
 3. Render reads `render.yaml` and creates the `medicine-pro-api` backend and `medicine-pro-frontend` static site. Select **Apply** to deploy them.
 4. When the deploy finishes, open the frontend URL shown for `medicine-pro-frontend` (normally `https://medicine-pro-frontend.onrender.com`).
 
-The Blueprint sets the frontend API URL, allows that frontend origin through backend CORS, and configures the backend to use the external MySQL database. When prompted for `SPRING_DATASOURCE_URL`, enter the Aiven JDBC URL in this format: `jdbc:mysql://<HOST>:<PORT>/<DATABASE>?sslMode=REQUIRED` (replace the placeholders with the values from Aiven). Enter the database password when prompted for `SPRING_DATASOURCE_PASSWORD`; do not commit it to GitHub.
-
-Backend environment variables:
+The Blueprint sets the frontend API URL and allows that frontend origin through backend CORS. It uses the sample in-memory H2 database by default, so records can be lost when the backend restarts or redeploys. This lets the demo deploy without sharing database credentials. For persistent Aiven MySQL, set the following backend environment variables manually in Render:
 
 | Variable | Value |
 | --- | --- |
-| `SPRING_DATASOURCE_URL` | Aiven JDBC URL, including `?sslMode=REQUIRED` |
-| `SPRING_DATASOURCE_USERNAME` | `avnadmin` (set by the Blueprint) |
-| `SPRING_DATASOURCE_PASSWORD` | Aiven database password (enter as a secret in Render) |
-| `SPRING_DATASOURCE_DRIVER_CLASS_NAME` | `com.mysql.cj.jdbc.Driver` (set by the Blueprint) |
-| `JWT_SECRET` | Generated securely by Render |
-| `CORS_ALLOWED_ORIGINS` | `https://medicine-pro-frontend.onrender.com` |
-| `H2_CONSOLE_ENABLED` | `false` |
+| `SPRING_DATASOURCE_URL` | Aiven JDBC URL, for example `jdbc:mysql://<HOST>:<PORT>/<DATABASE>?sslMode=REQUIRED` |
+| `SPRING_DATASOURCE_USERNAME` | `avnadmin` |
+| `SPRING_DATASOURCE_PASSWORD` | Aiven database password (enter as a secret in Render; never commit it) |
+| `SPRING_DATASOURCE_DRIVER_CLASS_NAME` | `com.mysql.cj.jdbc.Driver` |
 
-Render supplies `PORT` automatically. If Render displays different service URLs, update `VITE_API_URL` on the frontend and `CORS_ALLOWED_ORIGINS` on the backend to match. Use this setup for demos; confirm medicine and availability details with a licensed pharmacist or healthcare professional.
+The Blueprint generates `JWT_SECRET` securely and sets `CORS_ALLOWED_ORIGINS` and `H2_CONSOLE_ENABLED` for the demo deployment. Render supplies `PORT` automatically.
+
+If Render displays different service URLs, update `VITE_API_URL` on the frontend and `CORS_ALLOWED_ORIGINS` on the backend to match. Use this setup for demos; confirm medicine and availability details with a licensed pharmacist or healthcare professional.
 
 ## Demo accounts
 

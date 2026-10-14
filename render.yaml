@@ -14,14 +14,6 @@ services:
         value: https://medicine-pro-frontend.onrender.com
       - key: H2_CONSOLE_ENABLED
         value: false
-      - key: SPRING_DATASOURCE_URL
-        sync: false
-      - key: SPRING_DATASOURCE_USERNAME
-        value: avnadmin
-      - key: SPRING_DATASOURCE_PASSWORD
-        sync: false
-      - key: SPRING_DATASOURCE_DRIVER_CLASS_NAME
-        value: com.mysql.cj.jdbc.Driver
 
   - type: web
     name: medicine-pro-frontend
